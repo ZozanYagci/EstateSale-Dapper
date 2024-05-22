@@ -44,7 +44,7 @@ namespace EstateSaleProject.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCategory(int id)
         {
-            var value=_categoryRepository.GetCategory(id);
+            var value=await _categoryRepository.GetCategory(id);
             return Ok(value);
         }
     }
