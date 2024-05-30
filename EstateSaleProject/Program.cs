@@ -2,6 +2,8 @@
 using EstateSaleProject.Models.DapperContext;
 using EstateSaleProject.Repositories.CategoryRepository;
 using EstateSaleProject.Repositories.ProductRepository;
+using EstateSaleProject.Repositories.ServiceRepository;
+using EstateSaleProject.Repositories.WhoWeAreRepository;
 
 namespace EstateSaleProject
 {
@@ -16,6 +18,8 @@ namespace EstateSaleProject
             builder.Services.AddTransient<Context>();
             builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
             builder.Services.AddTransient<IProductRepository, ProductRepository>();
+            builder.Services.AddTransient<IWhoWeAreRepository, WhoWeAreDetailRepository>();
+            builder.Services.AddTransient<IServiceRepository, ServiceRepository>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

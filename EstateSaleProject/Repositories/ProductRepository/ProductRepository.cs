@@ -24,7 +24,7 @@ namespace EstateSaleProject.Repositories.ProductRepository
 
         public async Task<List<ResultProductWithCategoryDto>> GetAllProductWithCategoryAsync()
         {
-            string query = "Select Product.ID, Title, Price, City, District, Name From Product inner join Category on Product.ProductCategory=Category.ID";
+            string query = "Select Product.ID, Title, Price, City, District, Name, CoverImage, Type, Address From Product inner join Category on Product.ProductCategory=Category.ID";
             using (var connections = _context.CreateConnection())
             {
                 var values = await connections.QueryAsync<ResultProductWithCategoryDto>(query);
