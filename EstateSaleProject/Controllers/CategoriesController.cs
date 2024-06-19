@@ -28,7 +28,7 @@ namespace EstateSaleProject.Controllers
             return Ok("Kategori başarılı bir şekilde eklendi");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             _categoryRepository.DeleteCategory(id);
