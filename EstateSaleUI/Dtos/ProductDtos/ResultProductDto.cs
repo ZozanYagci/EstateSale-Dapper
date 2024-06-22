@@ -1,7 +1,7 @@
 ﻿
 namespace EstateSaleUI.Dtos.ProductDtos
 {
-    public class ResultProductDtos
+    public class ResultProductDto
     {
         public int ID { get; set; }
         public string Title { get; set; }

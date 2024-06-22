@@ -2,6 +2,7 @@
 using EstateSaleProject.Models.DapperContext;
 using EstateSaleProject.Repositories.BottomGridRepositories;
 using EstateSaleProject.Repositories.CategoryRepository;
+using EstateSaleProject.Repositories.EmployeeRepositories;
 using EstateSaleProject.Repositories.PopularLocationRepositories;
 using EstateSaleProject.Repositories.ProductRepository;
 using EstateSaleProject.Repositories.ServiceRepository;
@@ -26,6 +27,7 @@ namespace EstateSaleProject
             builder.Services.AddTransient<IBottomGridRepository, BottomGridRepository>();
             builder.Services.AddTransient<IPopularLocationRepository, PopularLocationRepository>();
             builder.Services.AddTransient<ITestimonialRepository, TestimonialRepository>();
+            builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
