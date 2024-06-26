@@ -1,6 +1,6 @@
-﻿namespace EstateSaleProject.Dtos.BottomGridDtos
+﻿namespace EstateSaleUI.Dtos.BottomGridDtos
 {
-    public class GetBottomGridDto
+    public class UpdateBottomGridDto
     {
         public int ID { get; set; }
         public string Icon { get; set; }

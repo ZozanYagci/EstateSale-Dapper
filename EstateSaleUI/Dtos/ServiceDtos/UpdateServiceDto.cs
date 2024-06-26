@@ -1,6 +1,6 @@
-﻿namespace EstateSaleUI.Dtos.WhoWeAreDtos
+﻿namespace EstateSaleUI.Dtos.ServiceDtos
 {
-    public class ResultServiceDto
+    public class UpdateServiceDto
     {
         public int ID { get; set; }
         public string Name { get; set; }

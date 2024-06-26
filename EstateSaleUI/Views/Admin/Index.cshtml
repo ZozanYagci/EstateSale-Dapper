@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
@@ -11,19 +10,19 @@
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
         @await Component.InvokeAsync("_AdminLayoutSpinnerComponentPartial")
-     
+
         @await Component.InvokeAsync("_AdminLayoutSidebarComponentPartial")
-     
+
         <div class="content">
-        
+
             @await Component.InvokeAsync("_AdminLayoutNavbarComponentPartial")
-      
-            @RenderBody()
-     
+
+           @RenderBody()
+
             @await Component.InvokeAsync("_AdminLayoutFooterComponentPartial")
-     
+
         </div>
-  
+
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 

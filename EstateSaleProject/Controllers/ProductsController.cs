@@ -26,5 +26,19 @@ namespace EstateSaleProject.Controllers
             var values=await _productRepository.GetAllProductWithCategoryAsync();
             return Ok(values);
         }
+        [HttpGet("ProductDealOfTheDayStatusChangeToFalse/{id}")]
+        public async Task<IActionResult> ProductDealOfTheDayStatusChangeToFalse(int id)
+        {
+            _productRepository.ProductDealOfTheDayStatusChangeToFalse(id);
+            return Ok("İlan Günün Fırsatları Arasından Çıkarıldı");
+        }
+
+        [HttpGet("ProductDealOfTheDayStatusChangeToTrue/{id}")]
+        public async Task<IActionResult> ProductDealOfTheDayStatusChangeToTrue(int id)
+        {
+            _productRepository.ProductDealOfTheDayStatusChangeToTrue(id);
+            return Ok("İlan Günün Fırsatları Arasına Eklendi");
+        }
+
     }
 }
