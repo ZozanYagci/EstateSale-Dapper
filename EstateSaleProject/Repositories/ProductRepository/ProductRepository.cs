@@ -32,6 +32,17 @@ namespace EstateSaleProject.Repositories.ProductRepository
             }
         }
 
+        public async Task<List<ResultLast5ProductWithCategoryDto>> GetLast5ProductAsync()
+        {
+            string query = "Select Top(5) P.ID, Title, Price, City, District, ProductCategory, AdvertisementDate" +
+                " From Product P inner join Category C on P.ProductCategory=C.ID Where Type='Kiralık' Order By P.ID Desc";
+            using (var connections = _context.CreateConnection())
+            {
+                var values = await connections.QueryAsync<ResultLast5ProductWithCategoryDto>(query);
+                return values.ToList();
+            }
+        }
+
         public async void ProductDealOfTheDayStatusChangeToFalse(int id)
         {
             string query = "Update Product Set DealOfTheDay = 0 where ID=@productID";
