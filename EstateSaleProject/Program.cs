@@ -1,4 +1,5 @@
 
+using EstateSaleProject.Hubs;
 using EstateSaleProject.Models.DapperContext;
 using EstateSaleProject.Repositories.BottomGridRepositories;
 using EstateSaleProject.Repositories.CategoryRepository;
@@ -35,6 +36,19 @@ namespace EstateSaleProject
             builder.Services.AddTransient<IContactRepository, ContactRepository>();
             builder.Services.AddTransient<IToDoListRepository, ToDoListRepository>();
 
+            builder.Services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", builder =>
+                {
+                    builder.AllowAnyHeader()
+                           .AllowAnyMethod()
+                           .SetIsOriginAllowed((host) => true)
+                           .AllowCredentials();
+                });
+            });
+            builder.Services.AddHttpClient();
+            builder.Services.AddSignalR();
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -49,12 +63,17 @@ namespace EstateSaleProject
                 app.UseSwaggerUI();
             }
 
+            app.UseCors("CorsPolicy");
+
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
-
             app.MapControllers();
+
+            app.MapHub<SignalRHub>("/signalrhub");
+            //localhost:1234/swagger/category/
+            //localhost:1234/signalrhub
 
             app.Run();
         }
