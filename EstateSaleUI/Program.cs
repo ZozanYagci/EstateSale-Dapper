@@ -1,3 +1,7 @@
+using EstateSaleUI.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.IdentityModel.Tokens.Jwt;
+
 namespace EstateSaleUI
 {
     public class Program
@@ -5,9 +9,23 @@ namespace EstateSaleUI
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
             // Add services to the container.
             builder.Services.AddHttpClient();
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddCookie(JwtBearerDefaults.AuthenticationScheme, opt =>
+            {
+
+                opt.LoginPath = "/Login/Index";
+                opt.LogoutPath = "/Login/LogOut/";
+                opt.AccessDeniedPath = "/Pages/AccessDenied/"; // yetkinin olmadýðý bir sayfaya gitmeye çalýþtýðýnda nereye gitsin
+                opt.Cookie.HttpOnly = true;
+                opt.Cookie.SameSite = SameSiteMode.Strict;
+                opt.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+                opt.Cookie.Name = "RealEstateJwt";
+            });
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddScoped<ILoginService, LoginService>();
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
@@ -25,11 +43,21 @@ namespace EstateSaleUI
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
+
 
             app.Run();
         }

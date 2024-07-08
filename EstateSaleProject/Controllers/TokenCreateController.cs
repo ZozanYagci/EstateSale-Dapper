@@ -9,7 +9,7 @@ namespace EstateSaleProject.Controllers
     public class TokenCreateController : ControllerBase
     {
         [HttpPost]
-        public IActionResult CreateToken(GetCheckAppUSerViewModel model)
+        public IActionResult CreateToken(GetCheckAppUserViewModel model)
         {
             var values=JwtTokenGenerator.GenerateToken(model);  
             return Ok(values);

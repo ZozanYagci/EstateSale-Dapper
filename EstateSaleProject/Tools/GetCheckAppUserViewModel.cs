@@ -1,6 +1,6 @@
 ﻿namespace EstateSaleProject.Tools
 {
-    public class GetCheckAppUSerViewModel
+    public class GetCheckAppUserViewModel
     {
         public int ID { get; set; }
         public string UserName { get; set; }

@@ -7,7 +7,7 @@ namespace EstateSaleProject.Tools
 {
     public class JwtTokenGenerator
     {
-        public static TokenResponseViewModel GenerateToken(GetCheckAppUSerViewModel model)
+        public static TokenResponseViewModel GenerateToken(GetCheckAppUserViewModel model)
         {
             var claims = new List<Claim>();
             if(!string.IsNullOrWhiteSpace(model.Role))

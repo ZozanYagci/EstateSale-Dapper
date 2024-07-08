@@ -43,6 +43,19 @@ namespace EstateSaleProject.Repositories.ProductRepository
             }
         }
 
+        public async Task<List<ResultProductAdvertListWithCategoryByEmployeeDto>> GetProductAdvertListByEmployeeAsync(int id)
+        {
+            string query = "Select Product.ID, Title, Price, City, District, Name, CoverImage, Type, Address, DealOfTheDay From Product inner join " +
+              "Category C on Product.ProductCategory=C.ID where EmployeeID=@employeeId";
+            var parameters = new DynamicParameters();
+            parameters.Add("@employeeId", id);
+            using (var connections = _context.CreateConnection())
+            {
+                var values = await connections.QueryAsync<ResultProductAdvertListWithCategoryByEmployeeDto>(query, parameters);
+                return values.ToList();
+            }
+        }
+
         public async void ProductDealOfTheDayStatusChangeToFalse(int id)
         {
             string query = "Update Product Set DealOfTheDay = 0 where ID=@productID";
