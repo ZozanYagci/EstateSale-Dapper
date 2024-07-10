@@ -5,6 +5,10 @@ using EstateSaleProject.Repositories.BottomGridRepositories;
 using EstateSaleProject.Repositories.CategoryRepository;
 using EstateSaleProject.Repositories.ContactRepositories;
 using EstateSaleProject.Repositories.EmployeeRepositories;
+using EstateSaleProject.Repositories.EstateAgentRepositories.DashboardRepositories.ChartRepositories;
+using EstateSaleProject.Repositories.EstateAgentRepositories.DashboardRepositories.StatisticRepositories;
+using EstateSaleProject.Repositories.LastProductsRepositories;
+using EstateSaleProject.Repositories.MessageRepositories;
 using EstateSaleProject.Repositories.PopularLocationRepositories;
 using EstateSaleProject.Repositories.ProductRepository;
 using EstateSaleProject.Repositories.ServiceRepository;
@@ -35,6 +39,10 @@ namespace EstateSaleProject
             builder.Services.AddTransient<IStatisticsRepository, StatisticsRepository>();
             builder.Services.AddTransient<IContactRepository, ContactRepository>();
             builder.Services.AddTransient<IToDoListRepository, ToDoListRepository>();
+            builder.Services.AddTransient<IStatisticRepository, StatisticRepository>();
+            builder.Services.AddTransient<IChartRepository, ChartRepository>(); 
+            builder.Services.AddTransient<ILast5ProductsRepository, Last5ProductsRepository>();
+            builder.Services.AddTransient<IMessageRepository, MessageRepository>();
 
             builder.Services.AddCors(opt =>
             {

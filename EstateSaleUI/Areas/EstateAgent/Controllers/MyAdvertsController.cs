@@ -1,7 +1,10 @@
-﻿using EstateSaleUI.Dtos.ProductDtos;
+﻿using EstateSaleUI.Dtos.CategoryDtos;
+using EstateSaleUI.Dtos.ProductDtos;
 using EstateSaleUI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace EstateSaleUI.Areas.EstateAgent.Controllers
 {
@@ -15,11 +18,11 @@ namespace EstateSaleUI.Areas.EstateAgent.Controllers
             _httpClientFactory = httpClientFactory;
             _loginService = loginService;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ActiveAdverts()
         {
             var id = _loginService.GetUserId;
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:44362/api/Products/ProductAdvertsListByEmployee?id=" + id);
+            var responseMessage = await client.GetAsync("https://localhost:44362/api/Products/ProductAdvertsListByEmployeeByTrue?id=" + id);
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -29,5 +32,59 @@ namespace EstateSaleUI.Areas.EstateAgent.Controllers
             return View();
         }
 
+        public async Task<IActionResult> PassiveAdverts()
+        {
+            var id = _loginService.GetUserId;
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync("https://localhost:44362/api/Products/ProductAdvertsListByEmployeeByFalse?id=" + id);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultProductAdvertListWithCategoryByEmployeeDto>>(jsonData);
+                return View(values);
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateAdvert()
+        {
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync("https://localhost:44362/api/Categories");
+
+            var jsonData = await responseMessage.Content.ReadAsStringAsync();
+            var values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
+
+            List<SelectListItem> categoryValues = (from x in values.ToList()
+                                                   select new SelectListItem
+                                                   {
+                                                       Text = x.Name,
+                                                       Value = x.ID.ToString()
+                                                   }).ToList();
+
+            ViewBag.v = categoryValues;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAdvert(CreateProductDto createProductDto)
+        {
+            createProductDto.DealOfTheDay = false;
+            createProductDto.AdvertisementDate=DateTime.Now;
+            createProductDto.Status = true;
+
+            var id = _loginService.GetUserId;
+            createProductDto.EmployeeID=int.Parse(id);
+
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(createProductDto);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync("https://localhost:44362/api/Products", stringContent);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
     }
 }

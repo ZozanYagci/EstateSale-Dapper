@@ -2,12 +2,11 @@
 
 namespace EstateSaleUI.ViewComponents.EstateAgent
 {
-    public class _EstateAgentLayoutSidebarComponentPartial: ViewComponent
+    public class _EstateAgentNavbarComponentPartial:ViewComponent
     {
-
         public IViewComponentResult Invoke()
         {
-            return View();
+            return View();  
         }
     }
 }

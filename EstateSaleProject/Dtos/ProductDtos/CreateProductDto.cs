@@ -1,9 +1,7 @@
-﻿namespace EstateSaleUI.Dtos.ProductDtos
+﻿namespace EstateSaleProject.Dtos.ProductDtos
 {
     public class CreateProductDto
     {
-
-
         public int ID { get; set; }
         public string Title { get; set; }
         public int Price { get; set; }
