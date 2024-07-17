@@ -1,4 +1,5 @@
-﻿using EstateSaleProject.Dtos.ProductDtos;
+﻿using EstateSaleProject.Dtos.ProductDetailDtos;
+using EstateSaleProject.Dtos.ProductDtos;
 
 namespace EstateSaleProject.Repositories.ProductRepository
 {
@@ -8,9 +9,15 @@ namespace EstateSaleProject.Repositories.ProductRepository
         Task<List<ResultProductAdvertListWithCategoryByEmployeeDto>> GetProductAdvertListByEmployeeAsyncByTrue(int id);
         Task<List<ResultProductAdvertListWithCategoryByEmployeeDto>> GetProductAdvertListByEmployeeAsyncByFalse(int id);
         Task<List<ResultProductWithCategoryDto>> GetAllProductWithCategoryAsync();
-        void ProductDealOfTheDayStatusChangeToTrue(int id);
-        void ProductDealOfTheDayStatusChangeToFalse(int id);
+        Task ProductDealOfTheDayStatusChangeToTrue(int id);
+        Task ProductDealOfTheDayStatusChangeToFalse(int id);
         Task<List<ResultLast5ProductWithCategoryDto>> GetLast5ProductAsync();
+        Task<List<ResultLast3ProductWithCategoryDto>> GetLast3ProductAsync();
         Task CreateProduct(CreateProductDto createProductDto);
+        Task<GetProductByProductIdDto> GetProductByProductId(int id);
+        Task<GetProductDetailByIdDto> GetProductDetailByProductId(int id);
+        Task<List<ResultProductWithSearchListDto>> ResultProductWithSearchList(string searchKeyValue, int propertyCategoryId, string city);
+        Task<List<ResultProductWithCategoryDto>> GetProductByDealOfTheDayTrueWithCategoryAsync();
+
     }
 }

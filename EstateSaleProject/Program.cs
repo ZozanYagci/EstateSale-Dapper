@@ -1,6 +1,7 @@
 
 using EstateSaleProject.Hubs;
 using EstateSaleProject.Models.DapperContext;
+using EstateSaleProject.Repositories.AppUserRepositories;
 using EstateSaleProject.Repositories.BottomGridRepositories;
 using EstateSaleProject.Repositories.CategoryRepository;
 using EstateSaleProject.Repositories.ContactRepositories;
@@ -10,9 +11,12 @@ using EstateSaleProject.Repositories.EstateAgentRepositories.DashboardRepositori
 using EstateSaleProject.Repositories.LastProductsRepositories;
 using EstateSaleProject.Repositories.MessageRepositories;
 using EstateSaleProject.Repositories.PopularLocationRepositories;
+using EstateSaleProject.Repositories.ProductImageRepositories;
 using EstateSaleProject.Repositories.ProductRepository;
+using EstateSaleProject.Repositories.PropertyAmenityRepositories;
 using EstateSaleProject.Repositories.ServiceRepository;
 using EstateSaleProject.Repositories.StatisticsRepositories;
+using EstateSaleProject.Repositories.SubFeatureRepositories;
 using EstateSaleProject.Repositories.TestimonialRepositories;
 using EstateSaleProject.Repositories.ToDoListRepositories;
 using EstateSaleProject.Repositories.WhoWeAreRepository;
@@ -43,6 +47,10 @@ namespace EstateSaleProject
             builder.Services.AddTransient<IChartRepository, ChartRepository>(); 
             builder.Services.AddTransient<ILast5ProductsRepository, Last5ProductsRepository>();
             builder.Services.AddTransient<IMessageRepository, MessageRepository>();
+            builder.Services.AddTransient<IProductImageRepository, ProductImageRepository>();
+            builder.Services.AddTransient<IAppUserRepository, AppUserRepository>();
+            builder.Services.AddTransient<IPropertyAmenityRepository, PropertyAmenityRepository>();
+            builder.Services.AddTransient<ISubFeatureRepository, SubFeatureRepository>();
 
             builder.Services.AddCors(opt =>
             {
