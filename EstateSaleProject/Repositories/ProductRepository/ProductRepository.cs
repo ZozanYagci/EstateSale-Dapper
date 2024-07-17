@@ -53,7 +53,7 @@ namespace EstateSaleProject.Repositories.ProductRepository
 
         public async Task<List<ResultProductWithCategoryDto>> GetAllProductWithCategoryAsync()
         {
-            string query = "Select Product.ID, Title, Price, City, District, Name, CoverImage, Type, Address, DealOfTheDay From Product inner join Category on Product.ProductCategory=Category.ID";
+            string query = "Select Product.ID, Title, Price, City, District, Name, CoverImage, Type, Address, DealOfTheDay, SlugUrl From Product inner join Category on Product.ProductCategory=Category.ID";
             using (var connections = _context.CreateConnection())
             {
                 var values = await connections.QueryAsync<ResultProductWithCategoryDto>(query);
@@ -124,7 +124,7 @@ namespace EstateSaleProject.Repositories.ProductRepository
         public async Task<GetProductByProductIdDto> GetProductByProductId(int id)
         {
             string query = "Select Product.ID, Title, Price, City, District, Description, Name, CoverImage, Type, Address, " +
-                "DealOfTheDay, AdvertisementDate From Product inner join Category on Product.ProductCategory=Category.ID where Product.ID=@productId";
+                "DealOfTheDay, AdvertisementDate, SlugUrl From Product inner join Category on Product.ProductCategory=Category.ID where Product.ID=@productId";
             var parameters= new DynamicParameters();
             parameters.Add("@productId", id);
             using(var connection = _context.CreateConnection())

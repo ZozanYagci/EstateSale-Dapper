@@ -49,12 +49,10 @@ namespace EstateSaleUI.Controllers
             return View();
         }
 
-        //[HttpGet("property/{slug}/{id}")]
-        [HttpGet]
+        [HttpGet("property/{slug}/{id}")]
         public async Task<IActionResult> PropertySingle(string slug, int id)
         {
-            //ViewBag.i = id;
-            id = 1;
+            ViewBag.i = id;
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync("https://localhost:44362/api/Products/GetProductByProductId?id=" + id);
             var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -73,7 +71,7 @@ namespace EstateSaleUI.Controllers
             ViewBag.address = values.Address;
             ViewBag.type = values.Type;
             ViewBag.description = values.Description;
-            //ViewBag.slugUrl = values.SlugUrl;
+            ViewBag.slugUrl = values.SlugUrl;
 
             ViewBag.bathCount = values2.BathCount;
             ViewBag.bedCount = values2.BedroomCount;
@@ -93,10 +91,20 @@ namespace EstateSaleUI.Controllers
 
             ViewBag.datediff = month / 30;
 
-            //string slugFromTitle = CreateSlug(values.title);
-            //ViewBag.slugUrl = slugFromTitle;
+            string slugFromTitle = CreateSlug(values.Title);
+            ViewBag.slugUrl = slugFromTitle;
 
             return View();
+        }
+        private string CreateSlug(string title)
+        {
+            title = title.ToLowerInvariant(); // Küçük harfe çevir
+            title = title.Replace(" ", "-"); // Boşlukları tire ile değiştir
+            title = System.Text.RegularExpressions.Regex.Replace(title, @"[^a-z0-9\s-]", ""); // Geçersiz karakterleri kaldır
+            title = System.Text.RegularExpressions.Regex.Replace(title, @"\s+", " ").Trim(); // Birden fazla boşluğu tek boşluğa indir ve kenar boşluklarını kaldır
+            title = System.Text.RegularExpressions.Regex.Replace(title, @"\s", "-"); // Boşlukları tire ile değiştir
+
+            return title;
         }
 
     }
