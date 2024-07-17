@@ -12,8 +12,7 @@ namespace EstateSaleProject.Repositories.CategoryRepository
         {
                 _context = context;
         }
-
-        public async void CreateCategory(CreateCategoryDto categoryDto)
+        public async Task CreateCategory(CreateCategoryDto categoryDto)
         {
             string query = "insert into Category(Name, Status) values (@categoryName, @categoryStatus)";
             var parameters = new DynamicParameters();
@@ -25,7 +24,7 @@ namespace EstateSaleProject.Repositories.CategoryRepository
             }
         }
 
-        public async void DeleteCategory(int id)
+        public async Task DeleteCategory(int id)
         {
             string query = "delete from Category where ID=@categoryID";
             var parameters= new DynamicParameters();
@@ -36,7 +35,7 @@ namespace EstateSaleProject.Repositories.CategoryRepository
             }
         }
 
-        public async Task<List<ResultCategoryDto>> GetAllCategoryAsync()
+        public async Task<List<ResultCategoryDto>> GetAllCategory()
         {
             string query = "Select * From Category";
             using(var connection=_context.CreateConnection())
@@ -58,7 +57,7 @@ namespace EstateSaleProject.Repositories.CategoryRepository
             }
         }
 
-        public async void UpdateCategory(UpdateCategoryDto categoryDto)
+        public async Task UpdateCategory(UpdateCategoryDto categoryDto)
         {
             string query = "Update Category Set Name=@categoryName, Status=@categoryStatus where ID=@categoryID";
             var parameters = new DynamicParameters();

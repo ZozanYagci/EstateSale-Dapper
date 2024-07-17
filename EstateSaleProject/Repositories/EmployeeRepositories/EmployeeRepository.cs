@@ -11,7 +11,7 @@ namespace EstateSaleProject.Repositories.EmployeeRepositories
         {
                 _context = context;
         }
-        public async void CreateEmployee(CreateEmployeeDto employeeDto)
+        public async Task CreateEmployee(CreateEmployeeDto employeeDto)
         {
             string query = "insert into Employee(Name, Title, Mail, PhoneNumber, ImageUrl, Status) values(@name, @title, @email, @phoneNumber, @imageUrl, @status)";
 
@@ -28,7 +28,7 @@ namespace EstateSaleProject.Repositories.EmployeeRepositories
             }
         }
 
-        public async void DeleteEmployee(int id)
+        public async Task DeleteEmployee(int id)
         {
             string query = "Delete From Employee where ID=@employeeID";
             var parameters = new DynamicParameters();
@@ -39,7 +39,7 @@ namespace EstateSaleProject.Repositories.EmployeeRepositories
             }
         }
 
-        public async Task<List<ResultEmployeeDto>> GetAllEmployeeAsync()
+        public async Task<List<ResultEmployeeDto>> GetAllEmployee()
         {
             string query = "Select * From Employee";
             using(var connection = _context.CreateConnection())
@@ -62,7 +62,7 @@ namespace EstateSaleProject.Repositories.EmployeeRepositories
         }
 
 
-        public async void UpdateEmployee(UpdateEmployeeDto employeeDto)
+        public async Task UpdateEmployee(UpdateEmployeeDto employeeDto)
         {
             string query = "Update Employee Set Name=@name, Title=@title, Mail=@email, PhoneNumber=@phoneNumber, ImageUrl=@imageUrl, Status=@status where ID=@employeeID";
 

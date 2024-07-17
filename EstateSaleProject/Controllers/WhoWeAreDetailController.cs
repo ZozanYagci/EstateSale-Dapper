@@ -21,26 +21,26 @@ namespace EstateSaleProject.Controllers
         [HttpGet]
         public async Task<IActionResult> WhoWeAreDetailList()
         {
-            var values = await _whoWeAreRepository.GetAllWhoWeAreDetailAsync();
+            var values = await _whoWeAreRepository.GetAllWhoWeAreDetail();
             return Ok(values);
         }
         [HttpPost]
         public async Task<IActionResult> CreateWhoWeAreDetail(CreateWhoWeAreDetailDto createWhoWeAreDetailDto)
         {
-            _whoWeAreRepository.CreateWhoWeAreDetail(createWhoWeAreDetailDto);
+            await _whoWeAreRepository.CreateWhoWeAreDetail(createWhoWeAreDetailDto);
             return Ok("Hakkımızda kısmı başarılı bir şekilde eklendi");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteWhoWeAreDetail(int id)
         {
-            _whoWeAreRepository.DeleteWhoWeAreDetail(id);
+            await _whoWeAreRepository.DeleteWhoWeAreDetail(id);
             return Ok("Hakkımızda kısmı başarılı bir şekilde silindi.");
         }
         [HttpPut]
         public async Task<IActionResult> UpdateWhoWeAreDetail(UpdateWhoWeAreDetailDto updateWhoWeAreDetailDto)
         {
-            _whoWeAreRepository.UpdateWhoWeAreDetail(updateWhoWeAreDetailDto);
+            await _whoWeAreRepository.UpdateWhoWeAreDetail(updateWhoWeAreDetailDto);
             return Ok("Hakkımızda kısmı başarıyla güncellendi");
         }
 
