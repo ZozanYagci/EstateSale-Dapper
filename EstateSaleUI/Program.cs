@@ -1,3 +1,4 @@
+using EstateSaleUI.Models;
 using EstateSaleUI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.IdentityModel.Tokens.Jwt;
@@ -10,6 +11,9 @@ namespace EstateSaleUI
         {
             var builder = WebApplication.CreateBuilder(args);
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
+
+            builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettingsKey"));
+
             // Add services to the container.
             builder.Services.AddHttpClient();
 

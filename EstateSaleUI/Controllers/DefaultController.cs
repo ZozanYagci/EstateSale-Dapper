@@ -1,5 +1,7 @@
 ﻿using EstateSaleUI.Dtos.CategoryDtos;
+using EstateSaleUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace EstateSaleUI.Controllers
@@ -7,16 +9,18 @@ namespace EstateSaleUI.Controllers
     public class DefaultController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ApiSettings _apiSettings;
 
-        public DefaultController(IHttpClientFactory httpClientFactory)
+        public DefaultController(IHttpClientFactory httpClientFactory, IOptions<ApiSettings> apiSettings)
         {
             _httpClientFactory = httpClientFactory;
+            _apiSettings= apiSettings.Value;
         }
         public async Task<IActionResult> Index()
         {
 
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:44362/api/Categories");
+            var responseMessage = await client.GetAsync(_apiSettings.BaseUrl + "Categories");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
